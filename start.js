@@ -1,5 +1,10 @@
 var gl;
 var horizAspect = 480.0/640.0;
+var squareVerticesBuffer;
+var mvMatrix;
+var shaderProgram;
+var vertexPositionAttribute;
+var perspectiveMatrix;
 
 var start = function() {
 	var canvas = document.getElementById('glCanvas');
@@ -108,7 +113,7 @@ var drawScene = function() {
 	mvTranslate([-0.0, 0.0, -6.0]);
 
 	gl.bindBuffer(gl.ARRAY_BUFFER, squareVerticesBuffer);
-	gl.vertexAttributePointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
+	gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
 	setMatrixUniforms();
 	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 }
