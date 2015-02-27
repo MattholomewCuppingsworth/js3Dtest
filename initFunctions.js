@@ -30,6 +30,9 @@ var initShaders = function() {
 
 	vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
 	gl.enableVertexAttribArray(vertexPositionAttribute);
+
+	vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
+	gl.enableVertexAttribArray(vertexColorAttribute);
 }
 
 var getShader = function(gl, id) {
