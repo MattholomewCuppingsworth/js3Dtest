@@ -1,6 +1,6 @@
 var gl;
 
-var squareVerticesBuffer;
+var cubeVerticesBuffer;
 var mvMatrix;
 var shaderProgram;
 var vertexPositionAttribute;
@@ -32,15 +32,15 @@ var start = function() {
 		initShaders();
 		initBuffers();
 
-		setInterval(drawScene, 33); //redraw 33ms (or about 30fps) 
+		setInterval(drawScene, 15); //redraw 33ms (or about 30fps) 
 		drawScene();
 	}
 }
 
 var initBuffers = function() {
+	cubeVerticesBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, cubeVerticesBuffer);
 // Create the object we're looking at
-	cubeVerticesIndexBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, cubeVerticesIndexBuffer);
 	// vertices are the object we are rendering first here.
 	var vertices = [
 		// Front Face
@@ -74,6 +74,13 @@ var initBuffers = function() {
 		-1.0,  1.0,  1.0, 
 		-1.0,  1.0, -1.0
 	];
+
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+	cubeVerticesIndexBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVerticesIndexBuffer);
+	// this array defines each face as two triangles
+	// each triplet corresponds to three rows of coordinates above
 	var cubeVertexIndices = [
 		0,  1,  2,   0,  2,  3,   //front
 		4,  5,  6,   4,  6,  7,   //back
@@ -124,7 +131,7 @@ var drawScene = function() {
 	mvTranslate([squareXOffset, squareYOffset, squareZOffset]);
 	
 	// Bind the position buffer
-	gl.bindBuffer(gl.ARRAY_BUFFER, cubeVerticesIndexBuffer);
+	gl.bindBuffer(gl.ARRAY_BUFFER, cubeVerticesBuffer);
 	gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
 	
 	// Bind the color buffer
