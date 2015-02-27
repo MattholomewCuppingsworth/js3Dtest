@@ -1,25 +1,36 @@
 <head>
 	<title>3D App</title>
+
+	<!-- Sylvester does matrix math. glUtils sits on top of sylvester for useful GL functions. matrixUtils contains a few more homebrewed functions -->
 	<script type="text/javascript" src="sylvester.js"></script>
 	<script type="text/javascript" src="glUtils.js"></script>
+	<script type="text/javascript" src="matrixUtils.js"></script>
+
+	<!-- initFunctions handles our basic initializtions (webGL, shaders) -->
+	<script type="text/javascript" src="initFunctions.js"></script>
+
+	<!-- Start fires off the process. -->
 	<script type="text/javascript" src="start.js"></script>
 
 	<!-- Shaders -->
-	<script id="shader-fs" type="x-shader/x-fragment">
-		void main(void) {
-			gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-		}
-	</script>
-	<script id="shader-vs" type="x-shader/x-vertex">
-		attribute vec3 aVertexPosition;
+		<!-- Fragment shader handles individual pixel ('fragment') colors -->
+		<script id="shader-fs" type="x-shader/x-fragment">
+			void main(void) {
+				gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+			}
+		</script>
+		<!-- Vertex shader handles understanding object vertices and lighting -->
+		<script id="shader-vs" type="x-shader/x-vertex">
+			attribute vec3 aVertexPosition;
 
-		uniform mat4 uMVMatrix;
-		uniform mat4 uPMatrix;
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
 
-		void main(void) {
-			gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-		}
-	</script>
+			void main(void) {
+				gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+			}
+		</script>
+	<!-- end Shaders -->
 </head>
 
 <body onload="start()">
